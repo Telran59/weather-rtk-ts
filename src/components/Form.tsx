@@ -5,12 +5,12 @@ import {FormEvent} from "react";
 
 const Form = () => {
     const dispatch = useAppDispatch();
-    const {timestamp, city: name} = useAppSelector(state => state.weatherInfo);
+    const {timestamp, city: name = ''} = useAppSelector(state => state.weatherInfo);
 
     const handleClickGetWeather = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const city = e.currentTarget.city.value.trim();
-        if (city !== name || Date.now() - timestamp > weather_cache_time) {
+        if (city.toLowerCase() !== name.toLowerCase() || Date.now() - timestamp > weather_cache_time) {
             dispatch(fetchWeather(city));
         }
         e.currentTarget.city.value = '';
