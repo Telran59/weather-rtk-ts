@@ -3,8 +3,7 @@ export interface WeatherInfo {
     country: string,
     temp: number,
     pressure: number,
-    sunset: number,
-    timestamp: number
+    sunset: number
 }
 
 export interface WeatherInfoResponse {
