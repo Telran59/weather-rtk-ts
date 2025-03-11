@@ -1,18 +1,14 @@
-import {weather_cache_time} from "../utils/constants.ts";
-import {fetchWeather} from "../features/api/asyncWeatherAction.ts";
-import {useAppDispatch, useAppSelector} from "../app/hooks.ts";
+import {useAppDispatch} from "../app/hooks.ts";
 import {FormEvent} from "react";
+import {setCity} from "../features/slices/citySlice.ts";
 
 const Form = () => {
     const dispatch = useAppDispatch();
-    const {timestamp, city: name = ''} = useAppSelector(state => state.weatherInfo);
 
     const handleClickGetWeather = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const city = e.currentTarget.city.value.trim();
-        if (city.toLowerCase() !== name.toLowerCase() || Date.now() - timestamp > weather_cache_time) {
-            dispatch(fetchWeather(city));
-        }
+        dispatch(setCity(city));
         e.currentTarget.city.value = '';
     }
 
